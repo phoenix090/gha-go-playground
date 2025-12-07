@@ -9,7 +9,12 @@ RUN go mod download
 
 # Copy the rest of the code
 COPY . .
-RUN go build -o app-server ./...
+
+# First, verify all packages compile
+RUN go build ./...
+
+# Then, build the main binary
+RUN go build -o app-server .
 
 # Runtime stage
 FROM alpine:3.20
